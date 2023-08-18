@@ -17,13 +17,26 @@ from streamlit_chat import message
 
 st.set_page_config(layout="wide")
 
+device = torch.device('cpu')
+
 checkpoint = "LaMini-T5-738M"
+print(f"Checkpoint path: {checkpoint}")  # Add this line for debugging
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 base_model = AutoModelForSeq2SeqLM.from_pretrained(
     checkpoint,
-    device_map="auto",
-    torch_dtype = torch.float32
+    device_map=device,
+    torch_dtype=torch.float32
 )
+
+
+# checkpoint = "LaMini-T5-738M"
+# tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+# base_model = AutoModelForSeq2SeqLM.from_pretrained(
+#     checkpoint,
+#     device_map="auto",
+#     torch_dtype = torch.float32,
+#     from_tf=True
+# )
 
 persist_directory = "db"
 
@@ -53,7 +66,8 @@ def llm_pipeline():
         max_length = 256,
         do_sample = True,
         temperature = 0.3,
-        top_p= 0.95
+        top_p= 0.95,
+        device=device
     )
     local_llm = HuggingFacePipeline(pipeline=pipe)
     return local_llm
