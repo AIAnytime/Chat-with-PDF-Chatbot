@@ -19,7 +19,7 @@ st.set_page_config(layout="wide")
 
 device = torch.device('cpu')
 
-checkpoint = "LaMini-T5-738M"
+checkpoint = "MBZUAI/LaMini-T5-738M"
 print(f"Checkpoint path: {checkpoint}")  # Add this line for debugging
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 base_model = AutoModelForSeq2SeqLM.from_pretrained(
