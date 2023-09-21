@@ -18,3 +18,4 @@ requests==2.31.0
 uvicorn==0.18.3
 torch==2.0.1
 torchvision==0.15.2
+streamlit-chat
